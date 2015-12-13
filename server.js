@@ -4,13 +4,18 @@
 
 var express = require('express');
 var path = require('path');
-
-var routes = require('./routes/index');
-
+var routes = require('./routes/route');
 var app = express();
+var bodyParser = require('body-parser');
+var compression = require('compression');
 
-app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(compression());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.raw({ type: 'image/jpg' }));
+app.use(bodyParser.text({type:'text/html'}));
+app.use(bodyParser.json({ type: 'application/*+json' }));
+app.use(express.static(path.join(__dirname, '/ascii')));
+app.use(express.static(path.join(__dirname, '/images')));
 app.use('/', routes);
 
 var server = app.listen(80, function () {
