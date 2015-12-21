@@ -8,7 +8,7 @@
 <body>
 
 <!-- This is the main form-->
-<form id="image-form" action="/ascii/" enctype="multipart/form-data">
+<form id="image-form" action="" enctype="multipart/form-data">
     <input name="image" type="file" accept="image/*" capture="camera">
     <input type="submit" value="Submit Image"/>
 </form>
@@ -17,13 +17,9 @@
 <script type="text/javascript">
     var form = document.getElementById("image-form");
     form.onsubmit = function(){
-        var file = document.getElementById("file");
         var data = new FormData(form);
-//    var data = new FormData();
-        data.append("image", file);
 
         var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
 
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
@@ -35,10 +31,10 @@
         xhr.setRequestHeader("cache-control", "no-cache");
 
         xhr.send(data);
+
+        return false;
     }
 </script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
-<script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
 
 </body>
 </html>

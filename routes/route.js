@@ -26,7 +26,7 @@ router.route('/ascii')
 
 router.route('/ascii')
     .post(multipartyMiddleware, function (req, res, next) {
-        console.log(req);
+        //console.log(req);
         //console.log(req.files);
         //console.log(req.files.image.path);
 
