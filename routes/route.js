@@ -21,11 +21,12 @@ router.get('/', function (req, res, next) {
 
 router.route('/ascii')
     .get(function (req, res, next) {
-        res.sendFile('index.html',{ root: path.join(__dirname ,'../')});
+        res.sendFile('ascii.html',{ root: path.join(__dirname ,'../')});
     });
 
 router.route('/ascii')
     .post(multipartyMiddleware, function (req, res, next) {
+        console.log(req);
         //console.log(req.files);
         //console.log(req.files.image.path);
 
@@ -66,7 +67,7 @@ router.route('/ascii')
             //console.log(path.join(__dirname ,'../ascii/') + fileName + ".html");
             //res.send();
 
-            if (typeof next === "function") {next();}
+            //if (typeof next === "function") {next();}
         }
     });
 
