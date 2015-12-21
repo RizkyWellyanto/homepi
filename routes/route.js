@@ -21,7 +21,7 @@ router.get('/', function (req, res, next) {
 
 router.route('/ascii')
     .get(function (req, res, next) {
-
+        res.sendFile('index.html');
     });
 
 router.route('/ascii')
