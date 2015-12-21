@@ -23,7 +23,8 @@
 
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
-                console.log(this.responseText);
+                // TODO render the response HTML in the browser
+                document.write(this.response);
             }
         });
 
