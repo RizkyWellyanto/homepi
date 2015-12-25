@@ -26,23 +26,21 @@ router.route('/ascii')
 
 router.route('/ascii')
     .post(multipartyMiddleware, function (req, res, next) {
-        //console.log(req);
-        //console.log(req.files);
-        //console.log(req.files.image.path);
-
         // check whether image is undefined or not
         if(req.files.image){
             var fileName = req.files.image.originalFilename;
             fileName = fileName.slice(0, -4);
-            //console.log(fileName);
 
             // read image from request body
             fs.readFile(req.files.image.path, function (err, data) {
                 // save the image into the server
                 fs.writeFile("./images/" + fileName + ".jpg", data, function(err){
-                    if (err)
+                    if (err){
                         console.log(err);
+                        return;
+                    }
 
+                    // create ascii when ready
                     createAscii();
                 });
                 console.log("file: " + fileName + ".jpg received!");
@@ -53,33 +51,22 @@ router.route('/ascii')
             res.send("Image is undefined!");
         }
 
+        // call jp2a library from shell using execSync
         var createAscii = function (next) {
-            // convert the image using jp2a library
             var command = "jp2a --invert --width=300 --color --html --background=light ./images/" + fileName + ".jpg --output=./ascii/" + fileName + ".html";
             console.log("jp2a: " + fileName + ".html created!");
             execSync(command, sendHTML());
 
-            //if (typeof next === "function") {next();}
         }
 
-        var sendHTML = function () {
+        // send the created html file to the client
+        var sendHTML = function (next) {
             res.type("html");
-            res.sendFile(fileName +'.html',{ root: path.join(__dirname ,'../ascii/')});
+            setTimeout(function () {
+                res.sendFile(fileName +'.html',{ root: path.join(__dirname ,'../ascii/')});
+            }, 100); // sometimes the html is not ready yet, thus wait 0.1 second
             console.log("response: " + fileName + ".html sent!");
-            //res.render(fileName +'.html',{ root: path.join(__dirname ,'../ascii/')});
-            //console.log(path.join(__dirname ,'../ascii/') + fileName + ".html");
-            //res.send();
-
-            //if (typeof next === "function") {next();}
         }
-    });
-
-// this is for testing purposes
-router.route('/test')
-    .post(function (req, res, next) {
-        //res.html("test");
-        res.sendFile('torchic.html',{ root: path.join(__dirname ,'../ascii')});
-        //res.send();
     });
 
 module.exports = router;

@@ -9,6 +9,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var compression = require('compression');
 
+// middlewares
 app.use(compression());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.raw({ type: 'image/jpg' }));
@@ -18,7 +19,8 @@ app.use(express.static(path.join(__dirname, '/ascii')));
 app.use(express.static(path.join(__dirname, '/images')));
 app.use('/', routes);
 
-var server = app.listen(8080, function () {
+// run server
+var server = app.listen(80, function () {
     var host = server.address().address;
     var port = server.address().port;
 

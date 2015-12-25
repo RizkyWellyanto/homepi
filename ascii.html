@@ -27,15 +27,11 @@
 
                 document.open();
                 document.write(this.response);
-//                document.getElementById("output").innerHTML = this.response;
                 document.close();
-//                $('body').load('/',this.response,function(){
-//
-//                });
             }
         });
 
-        xhr.open("POST", "http://localhost:8080/ascii");
+        xhr.open("POST", "http://thisprojectiskilling.me:80/ascii");
         xhr.setRequestHeader("cache-control", "no-cache");
 
         xhr.send(data);
@@ -43,8 +39,5 @@
         return false;
     }
 </script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-
 </body>
 </html>
