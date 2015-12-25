@@ -6,7 +6,7 @@ var express = require('express');
 var path = require('path');
 var router = express.Router();
 var sys = require('sys');
-var exec = require('child_process').exec;
+var execSync = require('child_process').execSync;
 var fs = require('fs');
 var multiparty = require('multiparty');
 var multipart = require('connect-multiparty');
@@ -43,7 +43,7 @@ router.route('/ascii')
                     if (err)
                         console.log(err);
 
-                    createAscii(next);
+                    createAscii();
                 });
                 console.log("file: " + fileName + ".jpg received!");
             });
@@ -57,9 +57,12 @@ router.route('/ascii')
             // convert the image using jp2a library
             var command = "jp2a --invert --width=300 --color --html --background=light ./images/" + fileName + ".jpg --output=./ascii/" + fileName + ".html";
             console.log("jp2a: " + fileName + ".html created!");
-            function puts(error, stdout, stderr) {sys.puts(stdout);}
-            exec(command, puts);
+            execSync(command, sendHTML());
 
+            //if (typeof next === "function") {next();}
+        }
+
+        var sendHTML = function () {
             res.type("html");
             res.sendFile(fileName +'.html',{ root: path.join(__dirname ,'../ascii/')});
             console.log("response: " + fileName + ".html sent!");

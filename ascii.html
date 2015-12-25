@@ -23,8 +23,15 @@
 
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
-                // TODO render the response HTML in the browser
+                console.log(this.response);
+
+                document.open();
                 document.write(this.response);
+//                document.getElementById("output").innerHTML = this.response;
+                document.close();
+//                $('body').load('/',this.response,function(){
+//
+//                });
             }
         });
 
@@ -36,6 +43,8 @@
         return false;
     }
 </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
 </body>
 </html>
