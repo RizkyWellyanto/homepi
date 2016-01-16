@@ -55,7 +55,7 @@ router.route('/ascii')
 
         // call jp2a library from shell using execSync
         var createAscii = function (next) {
-            var command = "sudo jp2a --invert --width=300 --color --html --background=light ./images/" + fileName + ".jpg --output=./ascii/" + fileName + ".html";
+            var command = "jp2a --invert --width=300 --color --html --background=light ./images/" + fileName + ".jpg --output=./ascii/" + fileName + ".html";
             console.log("jp2a: " + fileName + ".html created!");
             execSync(command, sendHTML());
         };
