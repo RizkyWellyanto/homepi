@@ -23,7 +23,7 @@ app.use('/res', express.static(path.join(__dirname, '/res')));
 app.use('/', routes);
 
 // run server
-var server = app.listen(80, function () {
+var server = app.listen(process.env.PORT || 80, function () {
 //var server = app.listen(8080, function () {
     var host = server.address().address;
     var port = server.address().port;
